@@ -1,17 +1,19 @@
-//import Database from "better-sqlite3";
-import { FourCharacters } from './data/four-characters'
 import { AppDataSource } from './data-source'
 
-console.log('hello2')
-
-// const db = new Database("test.db");
+console.log('start')
 
 const test = async () => {
-  console.log(test)
+  console.log('start initialize')
+  await AppDataSource.initialize()
+    .then(() => {
+      console.log('Data Source has been initialized!')
+    })
+    .catch((err) => {
+      console.error('Error during Data Source initialization', err)
+    })
+  console.log('end initialize')
+
   const result = await AppDataSource.manager.query("SELECT 'a'")
   console.log(result)
 }
-test()
-
-console.log('hello3')
-console.log(FourCharacters)
+void test()
