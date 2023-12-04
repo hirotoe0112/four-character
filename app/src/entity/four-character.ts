@@ -1,8 +1,8 @@
-import { BaseEntity, Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
+import { BaseEntity, Entity, Column, PrimaryColumn } from 'typeorm'
 
 @Entity({ name: 'four_character', schema: 'app' })
 export class FourCharacter extends BaseEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn()
   id!: number
 
   @Column()
