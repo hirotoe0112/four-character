@@ -8,7 +8,8 @@
     "format": "prettier --write \"src/**/*.ts\" && eslint --fix \"src/**/*.ts\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "run-db": "docker-compose up -d",
-    "stop-db": "docker-compose down"
+    "stop-db": "docker-compose down",
+    "typeorm": "typeorm-ts-node-commonjs -d ./src/data-source.ts"
   },
   "author": "",
   "license": "ISC",
