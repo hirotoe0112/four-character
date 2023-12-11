@@ -1,19 +1,25 @@
-import { AppDataSource } from './data-source'
+import express, { Request, Response, Application } from 'express'
+import dotenv from 'dotenv'
+import fourCharacterRoute from './routes/four-characters'
 
-console.log('start')
+dotenv.config()
 
-const test = async () => {
-  console.log('start initialize')
-  await AppDataSource.initialize()
-    .then(() => {
-      console.log('Data Source has been initialized!')
-    })
-    .catch((err) => {
-      console.error('Error during Data Source initialization', err)
-    })
-  console.log('end initialize')
+const app: Application = express()
+const port = process.env.PORT || 8000
 
-  const result = await AppDataSource.manager.query("SELECT 'a'")
-  console.log(result)
-}
-void test()
+// ミドルウェア登録
+// json()は、json形式のリクエストボディを解析する
+app.use(express.json())
+// extendedをtrueにすると、ネストしたオブジェクトを解析できる
+app.use(express.urlencoded({ extended: true }))
+
+// ルーター登録
+app.use('/test', fourCharacterRoute)
+
+app.get('/', (req: Request, res: Response) => {
+  res.send('Hello World!')
+})
+
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`)
+})
