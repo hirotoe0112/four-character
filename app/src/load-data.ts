@@ -5,14 +5,17 @@ import path from 'path'
 import { FourCharacter } from './entity/four-character'
 
 type Character = {
-  entity: string,
+  entity: string
   items: FourCharacter[]
 }
 
 const loadData = async () => {
   await AppDataSource.initialize()
 
-  const file = fs.readFileSync(path.resolve(__dirname, './data/four-characters.yml'), 'utf8')
+  const file = fs.readFileSync(
+    path.resolve(__dirname, './data/four-characters.yml'),
+    'utf8',
+  )
   const parsedData: Character = parse(file)
 
   await FourCharacter.save(parsedData.items)
