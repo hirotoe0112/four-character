@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node src/index.ts",
+    "load-data": "ts-node src/load-data.ts",
     "format": "prettier --write \"src/**/*.ts\" && eslint --fix \"src/**/*.ts\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "run-db": "docker-compose up -d",
@@ -27,6 +28,7 @@
   "dependencies": {
     "pg": "^8.11.3",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.3.17"
+    "typeorm": "^0.3.17",
+    "yaml": "^2.3.4"
   }
 }
