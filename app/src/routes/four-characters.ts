@@ -1,5 +1,4 @@
 import express, { Response } from 'express'
-import { AppDataSource } from '../data-source'
 import { FourCharacter } from '../entity/four-character'
 
 type FourCharacterResponse = {
@@ -8,8 +7,7 @@ type FourCharacterResponse = {
 
 const fourCharacterRoute = express.Router()
 
-fourCharacterRoute.use(async (req, res, next) => {
-  await AppDataSource.initialize()
+fourCharacterRoute.use((req, res, next) => {
   next()
 })
 

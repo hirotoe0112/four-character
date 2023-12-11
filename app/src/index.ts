@@ -1,25 +1,30 @@
-import express, { Request, Response, Application } from 'express'
+import express, { Application } from 'express'
 import dotenv from 'dotenv'
-import fourCharacterRoute from './routes/four-characters'
+import { AppDataSource } from './data-source'
+import { routes } from './routes'
 
 dotenv.config()
 
 const app: Application = express()
 const port = process.env.PORT || 8000
 
-// ミドルウェア登録
-// json()は、json形式のリクエストボディを解析する
-app.use(express.json())
-// extendedをtrueにすると、ネストしたオブジェクトを解析できる
-app.use(express.urlencoded({ extended: true }))
+const server = async () => {
+  // DB初期化
+  await AppDataSource.initialize()
 
-// ルーター登録
-app.use('/test', fourCharacterRoute)
+  // ミドルウェア登録
+  // json()は、json形式のリクエストボディを解析する
+  app.use(express.json())
+  // extendedをtrueにすると、ネストしたオブジェクトを解析できる
+  app.use(express.urlencoded({ extended: true }))
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello World!')
-})
+  // ルーター登録
+  routes(app)
 
-app.listen(port, () => {
-  console.log(`Listening on port ${port}`)
-})
+  // サーバー起動
+  app.listen(port, () => {
+    console.log(`Listening on port ${port}`)
+  })
+}
+
+void server()
