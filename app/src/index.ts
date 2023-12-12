@@ -17,6 +17,17 @@ const server = async () => {
   app.use(express.json())
   // extendedをtrueにすると、ネストしたオブジェクトを解析できる
   app.use(express.urlencoded({ extended: true }))
+  // etagの生成を無効にする
+  app.disable('etag')
+
+  // レスポンスヘッダー
+  app.use((req, res, next) => {
+    res.set('Access-Control-Allow-Origin', ['http://localhost:8000'])
+    res.set('X-FRAME-OPTIONS', 'DENY')
+    res.set('X-Content-Type-Options', 'nosniff')
+    res.set('cache-control', 'no-store')
+    next()
+  })
 
   // ルーター登録
   routes(app)
