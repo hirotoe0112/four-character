@@ -7,10 +7,6 @@ type FourCharacterResponse = {
 
 const fourCharacterRoute = express.Router()
 
-fourCharacterRoute.use((req, res, next) => {
-  next()
-})
-
 fourCharacterRoute.get('/', async (req, res: Response<FourCharacterResponse>) => {
   const fourCharacters = await FourCharacter.find()
 
